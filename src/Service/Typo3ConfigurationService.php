@@ -10,11 +10,15 @@ class Typo3ConfigurationService
     public static function getConfiguredHeaders()
     {
         $additionalTypo3Headers = [];
-        foreach ($GLOBALS['TSFE']->config['config']['additionalHeaders.'] as $headerItem) {
-            $headerStringSegments = explode(':', $headerItem['header']);
-            $additionalTypo3Headers[trim($headerStringSegments[0])] = trim($headerStringSegments[1]);
+
+        $additionalHeaderConfiguration = $GLOBALS['TSFE']->config['config']['additionalHeaders.'];
+        if (is_array($additionalHeaderConfiguration)) {
+            foreach ($GLOBALS['TSFE']->config['config']['additionalHeaders.'] as $headerItem) {
+                $headerStringSegments = explode(':', $headerItem['header']);
+                $additionalTypo3Headers[trim($headerStringSegments[0])] = trim($headerStringSegments[1]);
+            }
         }
         
         return $additionalTypo3Headers;
-    }    
+    }
 }
